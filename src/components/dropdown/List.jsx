@@ -1,0 +1,15 @@
+import { useDropDown } from './dropdown-context';
+const List = ({ children }) => {
+  const { show } = useDropDown();
+  return (
+    <>
+      {show && (
+        <div className="absolute top-full left-0 w-full bg-white shadow-sm  rounded-lg">
+          {children}
+        </div>
+      )}
+    </>
+  );
+};
+
+export default List;
