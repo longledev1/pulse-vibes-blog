@@ -3,8 +3,9 @@ import CategoryManage from '../../modules/category/CategoryManage';
 function DashboardCategory() {
   return (
     <div>
-      <DashboardHeading action={'category'}>Category</DashboardHeading>
+      <DashboardHeading tableName={'categories'} action={'category'}>Category</DashboardHeading>
       <CategoryManage></CategoryManage>
+      
     </div>
   );
 }

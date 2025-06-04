@@ -1,4 +1,5 @@
 import React from 'react';
+
 // components
 import { Table } from '../../components/table';
 import { LabelStatus } from '../../components/label';
@@ -28,9 +29,10 @@ import { useNavigate } from 'react-router-dom';
 
 // lo-dash
 import debounce from 'lodash/debounce';
+import { useItemCateStore } from '../../stores/cateStore';
 
 const MySwal = withReactContent(Swal);
-const PAGE_SIZE = 3;
+
 
 function CategoryManage() {
   const navigate = useNavigate();
@@ -40,18 +42,20 @@ function CategoryManage() {
 
   // loadmore
   const [hasMore, setHasMore] = useState(false);
-  const [limitCount, setLimitCount] = useState(PAGE_SIZE);
+  const limitCount = useItemCateStore((state) => state.count);
   const [total, setTotal] = useState(0);
+
+  const loadMore = useItemCateStore((state) =>state.loadMoreItem);
 
   useEffect(() => {
     const colRef = collection(db, 'categories');
     const baseQuery = filter
       ? query(
-          colRef,
-          where('name', '>=', filter),
-          where('name', '<=', filter + '\uf8ff'),
-          limit(limitCount)
-        )
+        colRef,
+        where('name', '>=', filter),
+        where('name', '<=', filter + '\uf8ff'),
+        limit(limitCount)
+      )
       : query(colRef, limit(limitCount));
 
     onSnapshot(colRef, (snapShot) => {
@@ -81,6 +85,8 @@ function CategoryManage() {
   }, [filter, limitCount]);
 
   console.log(total);
+  console.log("limitCount");
+  console.log(limitCount);
 
   // handle delete DOC
   const handleDelete = async (postID) => {
@@ -106,9 +112,13 @@ function CategoryManage() {
   }, 500);
 
   const handleLoadmore = () => {
+
     if (!hasMore) return;
-    setLimitCount((prev) => prev + PAGE_SIZE);
+
+    loadMore();
+
   };
+
 
   return (
     <>

@@ -1,6 +1,6 @@
 import { NavLink } from 'react-router-dom';
 
-function DashboardHeading({ children, action }) {
+function DashboardHeading({ children, tableName, action }) {
   return (
     <div className="flex items-center">
       <div className="flex-1">
@@ -10,7 +10,7 @@ function DashboardHeading({ children, action }) {
       {action ? (
         <div className="">
           <NavLink
-            to={`/dashboard/create-new-${action}`}
+            to={`/dashboard/${tableName ? tableName + "/" : ''}create-new-${action}`}
             className="bg-green-100 p-3 text-primary font-bold rounded-md hover:brightness-90 transition-all duration-200 "
           >
             Create new {action}

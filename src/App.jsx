@@ -10,10 +10,8 @@ import HomeContent from './modules/home/HomeContent';
 // Dashboard
 import DashboardHome from './pages/Dashboard/DashboardHome';
 import DashboardAddPost from './pages/Dashboard/DashoardAddPost';
-import DashboardCategory from './pages/Dashboard/DashboardCategory';
 import DashboardLayout from './modules/dashboard/DashboardLayout';
-import DashboardAddCategory from './pages/Dashboard/DashboardAddCategory';
-import CategoryUpadate from './modules/category/CategoryUpdate';
+import CategoryRoutes from './modules/category/cate.route';
 function App() {
   return (
     <div className="bg-secondary min-h-screen">
@@ -30,15 +28,13 @@ function App() {
           <Route path="/sign-in" element={<SignInPage />} />
 
           {/* Dashboard */}
+
           <Route path="/dashboard" element={<DashboardLayout />}>
             <Route index element={<DashboardHome />} />
             <Route path="create-new-post" element={<DashboardAddPost />} />
-            <Route
-              path="create-new-category"
-              element={<DashboardAddCategory />}
-            />
-            <Route path="categories" element={<DashboardCategory />} />
-            <Route path="categories/update" element={<CategoryUpadate />} />
+
+            {CategoryRoutes()}
+
           </Route>
 
           {/* Error Page */}
